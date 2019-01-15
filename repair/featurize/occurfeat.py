@@ -12,6 +12,7 @@ class OccurFeaturizer(Featurizer):
         if not self.setup_done:
             raise Exception('Featurizer %s is not properly setup.'%self.name)
         self.all_attrs = self.ds.get_attributes()
+        self.dk_cells_ids = set(self.ds.aux_table[AuxTables.dk_cells].df['_cid_'])  # Cache the cell ids of violations
         self.attrs_number = len(self.ds.attr_to_idx)
         self.raw_data_dict = {}
         self.total = None
@@ -50,7 +51,7 @@ class OccurFeaturizer(Featurizer):
         tensors = []
         # Set tuple_id index on raw_data
         t = self.ds.aux_table[AuxTables.cell_domain]
-        sorted_domain = t.df.reset_index().sort_values(by=['_vid_'])[['_tid_','attribute','_vid_','domain']]
+        sorted_domain = t.df.reset_index().sort_values(by=['_vid_'])[['_tid_', 'attribute', '_vid_', '_cid_', 'domain']]
         records = sorted_domain.to_records()
         for row in tqdm(list(records)):
             #Get tuple from raw_dataset
@@ -82,6 +83,11 @@ class OccurFeaturizer(Featurizer):
         domain = row['domain'].split('|||')
         rv_domain_idx = {val: idx for idx, val in enumerate(domain)}
 
+        # Get the id of this cell. Check if it is a violation. If the current cell is
+        # a violation, we set all of its co-occurrence features to 0s to disable it.
+        cell_id = row['_cid_']
+        is_violation = cell_id in self.dk_cells_ids
+
         # Iterate through every attribute (and current value for that
         # attribute) and set the co-occurrence probability for every
         # domain value for our current row['attribute'].
@@ -110,5 +116,5 @@ class OccurFeaturizer(Featurizer):
                     cooccur_freq = float(all_vals.get(rv_val,0.0))
                     prob = cooccur_freq/attr_freq
                     if rv_val in rv_domain_idx:
-                        tensor[0][rv_domain_idx[rv_val]][attr_idx] = prob
+                        tensor[0][rv_domain_idx[rv_val]][attr_idx] = prob if not is_violation else 0.0001
         return tensor

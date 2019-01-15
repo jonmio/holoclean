@@ -1,19 +1,21 @@
 import holoclean
+from dataset import AuxTables
 from detect import NullDetector, ViolationDetector
 from repair.featurize import InitFeaturizer
 from repair.featurize import InitAttFeaturizer
 from repair.featurize import InitSimFeaturizer
 from repair.featurize import FreqFeaturizer
 from repair.featurize import OccurFeaturizer
+from repair.featurize import OccurAttrFeaturizer
 from repair.featurize import ConstraintFeat
 from repair.featurize import LangModelFeat
 
-hc = holoclean.HoloClean(epochs=100, learning_rate=0.001, threads=20, batch_size=1, verbose=True, timeout=3*60000).session
+hc = holoclean.HoloClean(epochs=10, learning_rate=0.001, threads=20, batch_size=1, verbose=True, timeout=3*60000).session
 
 # hc.load_data('adult', 'testdata/jr77/Adult20.csv')
 # hc.load_data('adult', 'testdata/jr77/Adult500.csv')
-# hc.load_data('adult', 'testdata/jr77/Adult1100.csv')
-hc.load_data('adult', 'testdata/jr77/AdultFull.csv')
+hc.load_data('adult', 'testdata/jr77/Adult1100.csv')
+# hc.load_data('adult', 'testdata/jr77/AdultFull.csv')
 hc.load_dcs('testdata/jr77/adult_fbis.txt')
 hc.ds.set_constraints(hc.get_dcs())
 
@@ -81,12 +83,13 @@ hc.detect_errors(detectors)
 # 4. Repair errors utilizing the defined features.
 hc.setup_domain()
 featurizers = [
-    InitAttFeaturizer(learnable=False),
-    InitSimFeaturizer(),
+    #InitAttFeaturizer(learnable=True),
+    #InitSimFeaturizer(),
     FreqFeaturizer(),
-    OccurFeaturizer(),
-    LangModelFeat(),
-    ConstraintFeat()
+    OccurAttrFeaturizer(),
+    OccurFeaturizer()
+    #LangModelFeat(),
+    # ConstraintFeat()
 ]
 hc.repair_errors(featurizers)
 
