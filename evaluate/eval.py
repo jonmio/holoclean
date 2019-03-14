@@ -88,11 +88,21 @@ class EvalEngine:
         rep_recall = self.compute_repairing_recall()
         f1 = self.compute_f1()
         rep_f1 = self.compute_repairing_f1()
-
+        self.write_to_csv(prec=prec, rec=rec, rep_recall=rep_recall, f1=f1, rep_f1=rep_f1)
         if self.env['verbose']:
             self.log_weak_label_stats()
 
         return prec, rec, rep_recall, f1, rep_f1
+
+
+    def write_to_csv(self, prec, rec, rep_recall, f1, rep_f1):
+        import csv
+        fields=[self.env['optimizer'], self.env['seed'], self.env['learning_rate'], self.env['weight_decay'], prec, rec, rep_recall, f1, rep_f1]
+        # with open(r'./hparam_tuning_results.csv', 'a+') as f:
+        with open(r'./hparam_tuning_results_hospital_100_reduced_hparam_space.csv', 'a+') as f:
+
+            writer = csv.writer(f)
+            writer.writerow(fields)
 
     def eval_report(self):
         """

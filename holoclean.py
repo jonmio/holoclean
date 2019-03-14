@@ -220,7 +220,7 @@ class HoloClean:
                         opts["metavar"],
                         os.environ[opts["metavar"]])
                 )
-                arg_defaults[opts['dest']] = os.environ[opts["metavar"]]
+                arg_defaults[opts['dest']] = opts['type'](os.environ[opts["metavar"]])
 
         # Override defaults with manual flags
         for key in kwargs:
