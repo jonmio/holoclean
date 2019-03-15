@@ -77,7 +77,7 @@ def test_hospital_without_init():
     try:
         # 1. Setup a HoloClean session.
         hc = holoclean.HoloClean(
-            db_name='holo',
+            db_name='holo_jon',
             domain_thresh_1=0.0,
             domain_thresh_2=0.0,
             weak_label_thresh=0.99,

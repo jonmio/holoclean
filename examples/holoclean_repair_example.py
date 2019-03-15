@@ -16,8 +16,8 @@ seeds = [random.randint(0, 10000) for _ in range(30)]
 # weight_decays = [0.00000001, 0.01] linspace 10
 # learning_rates = [0.001, 500] linspace 15
 #
-weight_decays = np.logspace(-8, -2.5, 12)
-learning_rates = np.logspace(-3.5, 3, 14)
+weight_decays = np.logspace(-5, -2, 10)
+learning_rates = np.logspace(-4, 0, 10)
 
 
 for seed in seeds:
@@ -25,7 +25,7 @@ for seed in seeds:
         for learning_rate in learning_rates:
             # 1. Setup a HoloClean session.
             hc = holoclean.HoloClean(
-                db_name='holo',
+                db_name='holo_jon',
                 domain_thresh_1=0,
                 domain_thresh_2=0,
                 weak_label_thresh=0.99,

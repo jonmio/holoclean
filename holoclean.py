@@ -42,7 +42,7 @@ arguments = [
     (('-d', '--db_name'),
         {'metavar': 'DB_NAME',
          'dest': 'db_name',
-         'default': 'holo',
+         'default': 'holo_jon',
          'type': str,
          'help': 'Name of DB used to persist state.'}),
     (('-t', '--threads'),

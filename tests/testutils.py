@@ -10,7 +10,7 @@ def random_database():
     name of the database.
     """
     # Setup connection with default credentials for testing.
-    with connect(dbname='holo', user='holocleanuser', password='abcd1234', host='localhost') as conn:
+    with connect(dbname='holo_jon', user='holocleanuser', password='abcd1234', host='localhost') as conn:
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         with conn.cursor() as cur:
             while True:
@@ -29,7 +29,7 @@ def random_database():
                 return db_name
 
 def delete_database(db_name):
-    with connect(dbname='holo', user='holocleanuser', password='abcd1234', host='localhost') as conn:
+    with connect(dbname='holo_jon', user='holocleanuser', password='abcd1234', host='localhost') as conn:
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         with conn.cursor() as cur:
             # Terminate un-closed connections.
