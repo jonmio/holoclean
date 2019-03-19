@@ -99,7 +99,7 @@ class EvalEngine:
         import csv
         fields=[self.env['optimizer'], self.env['seed'], self.env['learning_rate'], self.env['weight_decay'], prec, rec, rep_recall, f1, rep_f1]
         # with open(r'./hparam_tuning_results.csv', 'a+') as f:
-        with open(r'./hparam_tuning_results_hospital_100_3_15.csv', 'a+') as f:
+        with open(r'./hparam_tuning_results_food_3_18.csv', 'a+') as f:
 
             writer = csv.writer(f)
             writer.writerow(fields)

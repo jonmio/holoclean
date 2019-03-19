@@ -16,8 +16,8 @@ seeds = [random.randint(0, 10000) for _ in range(30)]
 # weight_decays = [0.00000001, 0.01] linspace 10
 # learning_rates = [0.001, 500] linspace 15
 #
-weight_decays = np.logspace(-5, -2, 10)
-learning_rates = np.logspace(-4, 0, 10)
+weight_decays = np.logspace(-5, 0, 10)
+learning_rates = np.logspace(-6, 0, 10)
 
 
 for seed in seeds:
@@ -46,8 +46,8 @@ for seed in seeds:
             ).session
 
             # 2. Load training data and denial constraints.
-            hc.load_data('hospital', '../testdata/hospital_100.csv')
-            hc.load_dcs('../testdata/hospital_constraints.txt')
+            hc.load_data('food', '~/food5k/food5k-transformed.csv')
+            hc.load_dcs('~/food5k/food5k_constraints.txt')
             hc.ds.set_constraints(hc.get_dcs())
 
             # 3. Detect erroneous cells using these two detectors.
@@ -66,7 +66,7 @@ for seed in seeds:
             hc.repair_errors(featurizers)
 
             # 5. Evaluate the correctness of the results.
-            hc.evaluate(fpath='../testdata/hospital_100_clean.csv',
+            hc.evaluate(fpath='~/food5k/food5k-transformed_clean_flat.csv',
                         tid_col='tid',
                         attr_col='attribute',
                         val_col='correct_val')
