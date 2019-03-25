@@ -8,4 +8,6 @@ if [ $# -eq 1 ] ; then
 fi
 
 echo "Launching example script $script"
+source activate hc37
 python $script
+source deactivate
