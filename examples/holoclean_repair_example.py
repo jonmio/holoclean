@@ -6,7 +6,7 @@ from repair.featurize import *
 import random
 import numpy as np
 
-seeds = [random.randint(0, 10000) for _ in range(30)]
+seeds = [random.randint(0, 10000) for _ in range(21)]
 # weight_decays = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1, 10, 100]
 # learning_rates = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1, 10, 100]
 
