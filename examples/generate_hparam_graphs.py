@@ -3,12 +3,16 @@ import pdb
 import numpy as np
 results = {}
 
-with open("hparam_tuning_results_food_large_decay_1_3.csv", "r") as f:
+# with open("mina_hparam_food.csv", "r") as f:
+with open("hparam_tuning_results_food_zero_weight_decay.csv", "r") as f:
     reader = csv.reader(f, delimiter=",")
     for i, line in enumerate(reader):
         optimizer, seed, learning_rate, weight_decay, prec, rec, rep_recall, f1, rep_f1 = line
         if (learning_rate, weight_decay) not in results:
             results[(learning_rate, weight_decay)] = []
+        # if (learning_rate, weight_decay) not in counts:
+        #     counts[(learning_rate, weight_decay)] = 0
+        print(f1)
         results[(learning_rate, weight_decay)].append(float(f1))
 
 avg_results = {}
