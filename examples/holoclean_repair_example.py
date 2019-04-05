@@ -16,7 +16,9 @@ seeds = [random.randint(0, 10000) for _ in range(21)]
 # weight_decays = [0.00000001, 0.01] linspace 10
 # learning_rates = [0.001, 500] linspace 15
 #
-weight_decays = np.logspace(-5, 0, 6)
+# weight_decays = np.logspace(-5, 0, 6)
+# weight_decays = np.logspace(1, 3, 3)
+weight_decays = np.logspace(1,3,3)
 learning_rates = np.logspace(-6, 0, 7)
 
 

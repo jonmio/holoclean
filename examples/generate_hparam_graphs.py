@@ -3,7 +3,7 @@ import pdb
 import numpy as np
 results = {}
 
-with open("hparam_tuning_results_hospital_100_3_15.csv", "r") as f:
+with open("hparam_tuning_results_food_large_decay_1_3.csv", "r") as f:
     reader = csv.reader(f, delimiter=",")
     for i, line in enumerate(reader):
         optimizer, seed, learning_rate, weight_decay, prec, rec, rep_recall, f1, rep_f1 = line
@@ -15,6 +15,7 @@ avg_results = {}
 for learning_rate, weight_decay in results:
     vals = results[(learning_rate, weight_decay)]
     avg_results[(np.log10(float(learning_rate)), np.log10(float(weight_decay)))] = sum(vals) / len(vals)
+print(avg_results)
 
 import itertools
 import numpy as np
